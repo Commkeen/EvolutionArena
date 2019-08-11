@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody2D _rigidbody;
     Collider2D _collider;
+    PlayerInfo _playerInfo;
 
     public float moveGroundAccel = 5;
     public float moveGroundMaxSpeed = 20;
@@ -33,18 +34,19 @@ public class PlayerController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
+        _playerInfo = GetComponent<PlayerInfo>();
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateTerrainContacts();
-        var moveInput = Input.GetAxisRaw("J1Horizontal");
+        var moveInput = Input.GetAxisRaw(_playerInfo.HorizontalAxisName);
 
         var jumpPressedThisFrame = false;
-        var jumpInput = Input.GetAxisRaw("Vertical");
-        if (jumpInput > 0 && !jumpPressed) {jumpPressedThisFrame = true;}
-        jumpPressed = jumpInput > 0;
+        var jumpInput = Input.GetButton(_playerInfo.JumpButtonName);
+        if (jumpInput && !jumpPressed) {jumpPressedThisFrame = true;}
+        jumpPressed = jumpInput;
         isOnGround = CheckIsOnGround();
         
         UpdateJumpMovement(jumpPressed, jumpPressedThisFrame, Time.deltaTime);
