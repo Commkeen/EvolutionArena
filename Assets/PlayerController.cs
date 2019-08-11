@@ -56,8 +56,14 @@ public class PlayerController : MonoBehaviour
     void UpdateJumpMovement(bool jumpPressed, bool jumpPressedThisFrame, float dT)
     {
         // Update antigrav timer
-        if (!jumpPressed) {jumpAntigravTimer = 0;}
+        if (!jumpPressed || TERRAIN_UP) {jumpAntigravTimer = 0;}
         if (jumpAntigravTimer > 0) {jumpAntigravTimer -= dT;}
+
+        // Cut vspeed if on the ground
+        if (isOnGround)
+        {
+            //_rigidbody.velocity = new Vector2(_rigidbody.velocity.x, 0);
+        }
 
         // Check for a jump this frame
         if (isOnGround && jumpPressedThisFrame)
@@ -68,13 +74,18 @@ public class PlayerController : MonoBehaviour
         // Maintain vert speed if we're in antigrav time
         if (jumpAntigravTimer > 0)
         {
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpImpulse*dT);
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpImpulse);
         }
 
         // Apply gravity if we're out of antigrav time and not on the ground
         if (!isOnGround && jumpAntigravTimer <= 0)
         {
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _rigidbody.velocity.y + (gravity*dT*-1));
+            _rigidbody.gravityScale = gravity;
+            //_rigidbody.velocity = new Vector2(_rigidbody.velocity.x, _rigidbody.velocity.y + (gravity*dT*-1));
+        }
+        else
+        {
+            _rigidbody.gravityScale = 0;
         }
     }
 
@@ -89,6 +100,11 @@ public class PlayerController : MonoBehaviour
         var moveInputMagnitude = Mathf.Abs(moveInput);
         if (moveInputMagnitude > 0.1F)
         {
+            if (moveDir != 0 && moveDir != moveInputSign)
+            {
+                var decel = isOnGround ? moveGroundDecel : moveAirDecel;
+                horizontalSpeed += decel*moveInputSign*dT;
+            }
             var accel = isOnGround ? moveGroundAccel : moveAirAccel;
             horizontalSpeed += accel*moveInputSign*dT;
         }
@@ -112,6 +128,7 @@ public class PlayerController : MonoBehaviour
             horizontalSpeed = speedMagnitude * moveDir;
         }
 
+        //_rigidbody.AddForce(new Vector2((horizontalSpeed - _rigidbody.velocity.x)*10, 0));
         _rigidbody.velocity = new Vector2(horizontalSpeed, _rigidbody.velocity.y);
     }
 
@@ -119,7 +136,7 @@ public class PlayerController : MonoBehaviour
     {
         TERRAIN_DOWN = false; TERRAIN_LEFT = false; TERRAIN_RIGHT = false; TERRAIN_UP = false;
 
-        ContactPoint2D[] contacts = new ContactPoint2D[24];
+        List<ContactPoint2D> contacts = new List<ContactPoint2D>();
         ContactFilter2D filter = new ContactFilter2D();
         filter.SetLayerMask(LayerMask.GetMask("Terrain"));
         _collider.GetContacts(filter, contacts);
@@ -129,7 +146,18 @@ public class PlayerController : MonoBehaviour
             if (contact.normal.x < 0) {TERRAIN_RIGHT = true;}
             if (contact.normal.x > 0) {TERRAIN_LEFT = true;}
             if (contact.normal.y > 0) {TERRAIN_DOWN = true;}
-            if (contact.normal.x < 0) {TERRAIN_UP = true;}
+            if (contact.normal.y < 0) {TERRAIN_UP = true;}
+            if (contact.separation > 0)
+            {
+                //transform.Translate(contact.normal * contact.separation);
+            }
+
+            // Bounce over slightly misaligned tiles
+            if (contact.normal.y == 0 && contact.normalImpulse > 0)
+            {
+                transform.Translate(0,0.01F,0);
+                //_rigidbody.AddForce(new Vector2(0, 5));
+            }
         }
         
 
