@@ -78,15 +78,6 @@ public class PlayerController : MonoBehaviour
         {
             CollectPowerup(powerup);
         }
-        else if (player != null)
-        {
-            if (Superpowered)
-            {
-                KillPlayer(player);
-            }
-        }
-
-        
     }
 
     void CollectPowerup(Powerup powerup)
@@ -259,6 +250,7 @@ public class PlayerController : MonoBehaviour
             if (playerController != null && Superpowered && !playerController.Superpowered)
             {
                 KillPlayer(playerController);
+                RoundManager.Instance.EndRound("Cat");
             }
         }
     }
