@@ -3300,6 +3300,15 @@ PrefabInstance:
       propertyPath: Action2ButtonName
       value: P2Action2
       objectReference: {fileID: 0}
+    - target: {fileID: 1740679910, guid: 09a964c058aed3b4c8a9c08d6196b90e, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: fa7ca5d7db42c9540b3960c876aecd53, type: 2}
+    - target: {fileID: 3160115598700498773, guid: 09a964c058aed3b4c8a9c08d6196b90e,
+        type: 3}
+      propertyPath: mouseAnimator
+      value: 
+      objectReference: {fileID: 9100000, guid: fa7ca5d7db42c9540b3960c876aecd53, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09a964c058aed3b4c8a9c08d6196b90e, type: 3}
 --- !u!1001 &664284075
@@ -4677,6 +4686,15 @@ PrefabInstance:
       propertyPath: Action2ButtonName
       value: P4Action2
       objectReference: {fileID: 0}
+    - target: {fileID: 1740679910, guid: 09a964c058aed3b4c8a9c08d6196b90e, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e9511750d3d080e49918babf2d335956, type: 2}
+    - target: {fileID: 3160115598700498773, guid: 09a964c058aed3b4c8a9c08d6196b90e,
+        type: 3}
+      propertyPath: mouseAnimator
+      value: 
+      objectReference: {fileID: 9100000, guid: e9511750d3d080e49918babf2d335956, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09a964c058aed3b4c8a9c08d6196b90e, type: 3}
 --- !u!1001 &1526226049
@@ -4900,6 +4918,15 @@ PrefabInstance:
       propertyPath: Action2ButtonName
       value: P3Action2
       objectReference: {fileID: 0}
+    - target: {fileID: 1740679910, guid: 09a964c058aed3b4c8a9c08d6196b90e, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: a181c3208e61ad849b7029830e8b1794, type: 2}
+    - target: {fileID: 3160115598700498773, guid: 09a964c058aed3b4c8a9c08d6196b90e,
+        type: 3}
+      propertyPath: mouseAnimator
+      value: 
+      objectReference: {fileID: 9100000, guid: a181c3208e61ad849b7029830e8b1794, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09a964c058aed3b4c8a9c08d6196b90e, type: 3}
 --- !u!1001 &1933188422
