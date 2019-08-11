@@ -128,6 +128,8 @@ public class PlayerController : MonoBehaviour
             horizontalSpeed = speedMagnitude * moveDir;
         }
 
+        gameObject.GetComponent<Animator>()?.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalSpeed));
+
         //_rigidbody.AddForce(new Vector2((horizontalSpeed - _rigidbody.velocity.x)*10, 0));
         _rigidbody.velocity = new Vector2(horizontalSpeed, _rigidbody.velocity.y);
     }
