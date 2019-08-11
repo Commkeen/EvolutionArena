@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
     public int powerupsNeeded = 1;
     public float superpowerTimeMax = 5.0F;
     public float superpowerTimer = 0.0F;
+    public bool Superpowered {get{return superpowerTimer > 0;}}
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +51,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         UpdateTerrainContacts();
+        UpdatePlayerContacts();
         var moveInput = Input.GetAxisRaw(_playerInfo.HorizontalAxisName);
 
         var jumpPressedThisFrame = false;
@@ -70,11 +72,26 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.GetComponent<Powerup>() != null)
+        var powerup = other.GetComponent<Powerup>();
+        var player = other.GetComponent<PlayerController>();
+        if (powerup != null)
         {
-            GameObject.Destroy(other.gameObject);
+            CollectPowerup(powerup);
+        }
+        else if (player != null)
+        {
+            if (Superpowered)
+            {
+                KillPlayer(player);
+            }
         }
 
+        
+    }
+
+    void CollectPowerup(Powerup powerup)
+    {
+        GameObject.Destroy(powerup.gameObject);
         powerupCount++;
         if (powerupCount % powerupsNeeded == 0)
         {
@@ -84,6 +101,11 @@ public class PlayerController : MonoBehaviour
         {
             PowerupSpawnController.Instance.SpawnPowerup();
         }
+    }
+
+    void KillPlayer(PlayerController player)
+    {
+        GameObject.Destroy(player.gameObject);
     }
 
     void ActivateSuperpower()
@@ -100,7 +122,7 @@ public class PlayerController : MonoBehaviour
 
     void TickSuperpowerTimer()
     {
-        if (superpowerTimer > 0)
+        if (Superpowered)
         {
             superpowerTimer -= Time.deltaTime;
             if (superpowerTimer <= 0)
@@ -220,8 +242,23 @@ public class PlayerController : MonoBehaviour
                 //_rigidbody.AddForce(new Vector2(0, 5));
             }
         }
-        
+    }
 
+    void UpdatePlayerContacts()
+    {
+        List<ContactPoint2D> contacts = new List<ContactPoint2D>();
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(LayerMask.GetMask("Players"));
+        _collider.GetContacts(filter, contacts);
+
+        foreach (var contact in contacts)
+        {
+            var playerController = contact.collider.GetComponent<PlayerController>();
+            if (playerController != null && Superpowered && !playerController.Superpowered)
+            {
+                KillPlayer(playerController);
+            }
+        }
     }
 
     bool CheckIsOnGround()
