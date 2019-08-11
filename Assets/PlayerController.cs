@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         UpdateTerrainContacts();
-        var moveInput = Input.GetAxisRaw("Horizontal");
+        var moveInput = Input.GetAxisRaw("J1Horizontal");
 
         var jumpPressedThisFrame = false;
         var jumpInput = Input.GetAxisRaw("Vertical");
