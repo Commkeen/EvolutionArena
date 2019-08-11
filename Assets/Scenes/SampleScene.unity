@@ -4135,8 +4135,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d96868a91bb1fe478eb11c8ed80bba8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelMusic: {fileID: 8300000, guid: 85e55a260345d4e4f8466b17f4ae4a37, type: 3}
-  levelMusicLayer: {fileID: 8300000, guid: 20141e4f9e9c1ce45a0f118b583f8eb5, type: 3}
+  levelMusic: {fileID: 766531860}
+  levelMusicLayer: {fileID: 28219423}
 --- !u!4 &1207153347
 Transform:
   m_ObjectHideFlags: 0
