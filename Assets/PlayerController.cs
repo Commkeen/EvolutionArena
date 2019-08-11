@@ -129,6 +129,8 @@ public class PlayerController : MonoBehaviour
         }
 
         gameObject.GetComponent<Animator>()?.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalSpeed));
+        gameObject.GetComponent<Animator>()?.SetBool("GoingRight", horizontalSpeed > 0.5f);
+        gameObject.GetComponent<Animator>()?.SetBool("GoingLeft", horizontalSpeed < -0.5f);
 
         //_rigidbody.AddForce(new Vector2((horizontalSpeed - _rigidbody.velocity.x)*10, 0));
         _rigidbody.velocity = new Vector2(horizontalSpeed, _rigidbody.velocity.y);
