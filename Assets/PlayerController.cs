@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D _rigidbody;
     Collider2D _collider;
     PlayerInfo _playerInfo;
+    Animator _animator;
+
+    public RuntimeAnimatorController mouseAnimator;
+    public RuntimeAnimatorController catAnimator;
 
     public float moveGroundAccel = 5;
     public float moveGroundMaxSpeed = 20;
@@ -28,6 +32,10 @@ public class PlayerController : MonoBehaviour
     public bool isOnGround = false;
     public bool jumpPressed = false;
     public float jumpAntigravTimer = 0;
+    public int powerupCount = 0;
+    public int powerupsNeeded = 1;
+    public float superpowerTimeMax = 5.0F;
+    public float superpowerTimer = 0.0F;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +43,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
         _playerInfo = GetComponent<PlayerInfo>();
+        _animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -54,6 +63,51 @@ public class PlayerController : MonoBehaviour
         UpdateHorizontalMovement(moveInput, Time.deltaTime);
         
         TeleportVertical();
+
+        TickSuperpowerTimer();
+
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.GetComponent<Powerup>() != null)
+        {
+            GameObject.Destroy(other.gameObject);
+        }
+
+        powerupCount++;
+        if (powerupCount % powerupsNeeded == 0)
+        {
+            ActivateSuperpower();
+        }
+        else
+        {
+            PowerupSpawnController.Instance.SpawnPowerup();
+        }
+    }
+
+    void ActivateSuperpower()
+    {
+        superpowerTimer = superpowerTimeMax;
+        _animator.runtimeAnimatorController = catAnimator;
+    }
+
+    void ExpireSuperpower()
+    {
+        _animator.runtimeAnimatorController = mouseAnimator;
+        PowerupSpawnController.Instance.SpawnPowerup();
+    }
+
+    void TickSuperpowerTimer()
+    {
+        if (superpowerTimer > 0)
+        {
+            superpowerTimer -= Time.deltaTime;
+            if (superpowerTimer <= 0)
+            {
+                ExpireSuperpower();
+            }
+        }
     }
 
     void UpdateJumpMovement(bool jumpPressed, bool jumpPressedThisFrame, float dT)
@@ -131,9 +185,9 @@ public class PlayerController : MonoBehaviour
             horizontalSpeed = speedMagnitude * moveDir;
         }
 
-        gameObject.GetComponent<Animator>()?.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalSpeed));
-        gameObject.GetComponent<Animator>()?.SetBool("GoingRight", horizontalSpeed > 0.5f);
-        gameObject.GetComponent<Animator>()?.SetBool("GoingLeft", horizontalSpeed < -0.5f);
+        _animator.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalSpeed));
+        _animator.SetBool("GoingRight", horizontalSpeed > 0.5f);
+        _animator.SetBool("GoingLeft", horizontalSpeed < -0.5f);
 
         //_rigidbody.AddForce(new Vector2((horizontalSpeed - _rigidbody.velocity.x)*10, 0));
         _rigidbody.velocity = new Vector2(horizontalSpeed, _rigidbody.velocity.y);

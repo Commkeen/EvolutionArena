@@ -18,6 +18,7 @@ public class Powerup : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        return;
         if (other.GetComponent<PlayerController>() != null)
         {
             PowerupSpawnController.Instance.SpawnPowerup();

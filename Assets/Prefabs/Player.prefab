@@ -181,6 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2897948ce06cdab45ac94e0bd717b822, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseAnimator: {fileID: 9100000, guid: 9f3a84babac4ff24fa7115487dfc3b27, type: 2}
+  catAnimator: {fileID: 9100000, guid: 56cb7ec23759ecd48a9c1dec153eb387, type: 2}
   moveGroundAccel: 100
   moveGroundMaxSpeed: 10
   moveGroundDecel: 100
@@ -194,6 +196,10 @@ MonoBehaviour:
   isOnGround: 0
   jumpPressed: 0
   jumpAntigravTimer: 0
+  powerupCount: 0
+  powerupsNeeded: 1
+  superpowerTimeMax: 5
+  superpowerTimer: 0
 --- !u!61 &3160115598700498776
 BoxCollider2D:
   m_ObjectHideFlags: 0
