@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
 
         UpdateHorizontalMovement(moveInput, Time.deltaTime);
         
+        TeleportVertical();
     }
 
     void UpdateJumpMovement(bool jumpPressed, bool jumpPressedThisFrame, float dT)
@@ -179,5 +180,13 @@ public class PlayerController : MonoBehaviour
         }
         Debug.DrawRay(transform.position, Vector2.down * 1.1F, Color.green);
         return false;
+    }
+
+    void TeleportVertical()
+    {
+        if (transform.position.y < -31)
+        {
+            transform.position = new Vector2(transform.position.x, 1.5F);
+        }
     }
 }
