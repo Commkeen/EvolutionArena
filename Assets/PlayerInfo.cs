@@ -16,9 +16,9 @@ public class PlayerInfo : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Name = GameSettings.PlayerNames[PlayerIndex];
         if (!GameSettings.PlayerIsActive[PlayerIndex])
             gameObject.SetActive(false);
-
         
     }
 
