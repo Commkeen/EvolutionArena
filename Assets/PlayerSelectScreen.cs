@@ -8,6 +8,7 @@ public class PlayerSelectScreen : MonoBehaviour
 {
     public Text[] playerStatusText = null;
     public Text[] playerNamesText = null;
+    public Image[] playerImage = null;
 
     // Start is called before the first frame update
     void Start()
@@ -16,6 +17,7 @@ public class PlayerSelectScreen : MonoBehaviour
         {
             GameSettings.PlayerIsActive[i] = false;
             playerNamesText[i].text = GameSettings.PlayerNames[i];
+            playerImage[i].color = Color.grey;
 
         }
     }
@@ -30,12 +32,14 @@ public class PlayerSelectScreen : MonoBehaviour
             {
                 GameSettings.PlayerIsActive[i] = true;
                 playerStatusText[i].text = "Ready";
+                playerImage[i].color = Color.white;
             }
 
             if (Input.GetButtonDown("P" + controlnum + "Action1"))
             {
                 GameSettings.PlayerIsActive[i] = false;
                 playerStatusText[i].text = "Press A to Join";
+                playerImage[i].color = Color.grey;
             }
 
         }
