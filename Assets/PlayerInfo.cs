@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInfo : MonoBehaviour
 {
@@ -13,12 +14,18 @@ public class PlayerInfo : MonoBehaviour
     public int PlayerIndex = 0;
     public int Kills = 0;
 
+    public GameObject ScorePanel = null;
+    public Text textScore = null;
+
     // Start is called before the first frame update
     void Start()
     {
         Name = GameSettings.PlayerNames[PlayerIndex];
         if (!GameSettings.PlayerIsActive[PlayerIndex])
+        {
             gameObject.SetActive(false);
+            ScorePanel.SetActive(false);
+        }
         
     }
 
@@ -31,6 +38,7 @@ public class PlayerInfo : MonoBehaviour
     public void LogKill()
     {
         Kills++;
+        textScore.text = Kills.ToString();
         if (Kills >= RoundManager.Instance.killsToWin)
         {
             RoundManager.Instance.EndRound(Name);

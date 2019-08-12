@@ -40,7 +40,7 @@ public class PlayerSelectScreen : MonoBehaviour
 
         }
 
-        if (Input.GetButtonDown("GameStart") && GameSettings.PlayerIsActive.Count<bool>(a => a == true) > 0)
+        if (Input.GetButtonDown("GameStart") && GameSettings.PlayerIsActive.Count<bool>(a => a == true) > 1)
             UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");
 
 
