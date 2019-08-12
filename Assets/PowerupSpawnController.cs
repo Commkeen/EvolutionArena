@@ -43,7 +43,7 @@ public class PowerupSpawnController : MonoBehaviour
 
     public void ClearPowerups()
     {
-        var activePowerups = GameObject.FindObjectsOfType<PowerupSpawnLocation>();
+        var activePowerups = GameObject.FindObjectsOfType<Powerup>();
         foreach (var powerup in activePowerups)
         {
             GameObject.Destroy(powerup.gameObject);
