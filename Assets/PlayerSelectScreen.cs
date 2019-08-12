@@ -7,14 +7,17 @@ using System.Linq;
 public class PlayerSelectScreen : MonoBehaviour
 {
     public Text[] playerStatusText = null;
+    public Text[] playerNamesText = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        GameSettings.PlayerIsActive[0] = false;
-        GameSettings.PlayerIsActive[1] = false;
-        GameSettings.PlayerIsActive[2] = false;
-        GameSettings.PlayerIsActive[3] = false;
+        for (int i = 0; i< 4; i++)
+        {
+            GameSettings.PlayerIsActive[i] = false;
+            playerNamesText[i].text = GameSettings.PlayerNames[i];
+
+        }
     }
 
     // Update is called once per frame
