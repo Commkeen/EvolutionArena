@@ -126,6 +126,7 @@ public class PlayerController : MonoBehaviour
         superpowerTimer = superpowerTimeMax;
         _animator.runtimeAnimatorController = catAnimator;
         MusicManager.Instance.FadeInPowerupMusic();
+        PowerupSpawnController.Instance.ClearPowerups();
     }
 
     void ExpireSuperpower()
@@ -133,6 +134,7 @@ public class PlayerController : MonoBehaviour
         _animator.runtimeAnimatorController = mouseAnimator;
         PowerupSpawnController.Instance.SpawnPowerup();
         MusicManager.Instance.FadeOutPowerupMusic();
+        PowerupSpawnController.Instance.ReplenishPowerups();
     }
 
     void Respawn()

@@ -9,7 +9,7 @@ public class PowerupSpawnController : MonoBehaviour
     public Powerup powerupPrefab;
 
     public int cooldownQueue = 2;
-
+    public int powerupsOnBoard = 2;
     private List<PowerupSpawnLocation> _spawnLocations = new List<PowerupSpawnLocation>();
 
     private Queue<PowerupSpawnLocation> _cooldownQueue = new Queue<PowerupSpawnLocation>();
@@ -21,7 +21,7 @@ public class PowerupSpawnController : MonoBehaviour
         Instance = this;
         _spawnLocations.AddRange(GameObject.FindObjectsOfType<PowerupSpawnLocation>());
         if (_spawnLocations.Count < cooldownQueue) {cooldownQueue = _spawnLocations.Count - 1;}
-        SpawnPowerup();
+        ReplenishPowerups();
     }
 
     // Update is called once per frame
@@ -39,6 +39,23 @@ public class PowerupSpawnController : MonoBehaviour
     public Vector2 GetPlayerSpawnLocation()
     {
         return GetNextSpawnLocation();
+    }
+
+    public void ClearPowerups()
+    {
+        var activePowerups = GameObject.FindObjectsOfType<PowerupSpawnLocation>();
+        foreach (var powerup in activePowerups)
+        {
+            GameObject.Destroy(powerup.gameObject);
+        }
+    }
+
+    public void ReplenishPowerups()
+    {
+        for (var i = 0; i < powerupsOnBoard; i++)
+        {
+            SpawnPowerup();
+        }
     }
 
     private Vector2 GetNextSpawnLocation()
