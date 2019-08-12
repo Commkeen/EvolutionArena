@@ -13,9 +13,8 @@ public class TitleScreen : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetButtonDown("Submit"))
-            UnityEngine.SceneManagement.SceneManager.LoadScene("SampleScene");  
+        if (Input.GetButtonDown("GameStart"))
+            UnityEngine.SceneManagement.SceneManager.LoadScene("PlayerSelectScene");  
         
     }
 }
