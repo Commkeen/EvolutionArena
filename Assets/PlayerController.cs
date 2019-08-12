@@ -299,7 +299,8 @@ public class PlayerController : MonoBehaviour
         foreach (var contact in contacts)
         {
             var playerController = contact.collider.GetComponent<PlayerController>();
-            if (playerController != null && Superpowered && !playerController.Superpowered)
+            if (playerController != null && Superpowered
+                && !playerController.Superpowered && !playerController.Dead)
             {
                 KillPlayer(playerController);
             }
