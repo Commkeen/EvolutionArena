@@ -9,7 +9,9 @@ public class PlayerInfo : MonoBehaviour
     public string Action1ButtonName = "Action1";
     public string Action2ButtonName = "Action2";
 
+    public string Name = "Mouse";
     public int PlayerIndex = 0;
+    public int Kills = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -24,5 +26,14 @@ public class PlayerInfo : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void LogKill()
+    {
+        Kills++;
+        if (Kills >= RoundManager.Instance.killsToWin)
+        {
+            RoundManager.Instance.EndRound(Name);
+        }
     }
 }

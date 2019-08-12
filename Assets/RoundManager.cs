@@ -9,6 +9,7 @@ public class RoundManager : MonoBehaviour
     public static RoundManager Instance {get; private set;}
 
     public float postgameTime = 10.0F;
+    public int killsToWin = 5;
 
     public Text postgameTextField;
 

@@ -118,6 +118,7 @@ public class PlayerController : MonoBehaviour
     void KillPlayer(PlayerController player)
     {
         player.Die();
+        _playerInfo.LogKill();
     }
 
     void ActivateSuperpower()
