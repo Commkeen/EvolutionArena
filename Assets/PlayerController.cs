@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     Collider2D _collider;
     PlayerInfo _playerInfo;
     Animator _animator;
+    SpriteRenderer _spriteRenderer;
 
     public RuntimeAnimatorController mouseAnimator;
     public RuntimeAnimatorController catAnimator;
@@ -37,6 +38,11 @@ public class PlayerController : MonoBehaviour
     public float superpowerTimeMax = 5.0F;
     public float superpowerTimer = 0.0F;
     public bool Superpowered {get{return superpowerTimer > 0;}}
+    public float respawnTimeMax = 3.0F;
+    public float respawnTimer = 0.0F;
+    public bool Dead{get{return respawnTimer > 0;}}
+
+    
 
     // Start is called before the first frame update
     void Start()
@@ -45,11 +51,15 @@ public class PlayerController : MonoBehaviour
         _collider = GetComponent<Collider2D>();
         _playerInfo = GetComponent<PlayerInfo>();
         _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        TickRespawnTimer();
+        if (Dead) {return;}
+
         UpdateTerrainContacts();
         UpdatePlayerContacts();
         var moveInput = Input.GetAxisRaw(_playerInfo.HorizontalAxisName);
@@ -70,8 +80,19 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void Die()
+    {
+        if (Dead) {return;}
+        respawnTimer = respawnTimeMax;
+        _rigidbody.simulated = false;
+        _collider.enabled = false;
+        _spriteRenderer.enabled = false;
+        
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (Dead) {return;}
         var powerup = other.GetComponent<Powerup>();
         var player = other.GetComponent<PlayerController>();
         if (powerup != null)
@@ -96,7 +117,7 @@ public class PlayerController : MonoBehaviour
 
     void KillPlayer(PlayerController player)
     {
-        GameObject.Destroy(player.gameObject);
+        player.Die();
     }
 
     void ActivateSuperpower()
@@ -113,6 +134,15 @@ public class PlayerController : MonoBehaviour
         MusicManager.Instance.FadeOutPowerupMusic();
     }
 
+    void Respawn()
+    {
+        var spawnLocation = PowerupSpawnController.Instance.GetPlayerSpawnLocation();
+        transform.position = spawnLocation;
+        _rigidbody.simulated = true;
+        _collider.enabled = true;
+        _spriteRenderer.enabled = true;
+    }
+
     void TickSuperpowerTimer()
     {
         if (Superpowered)
@@ -121,6 +151,18 @@ public class PlayerController : MonoBehaviour
             if (superpowerTimer <= 0)
             {
                 ExpireSuperpower();
+            }
+        }
+    }
+
+    void TickRespawnTimer()
+    {
+        if (Dead)
+        {
+            respawnTimer -= Time.deltaTime;
+            if (respawnTimer <= 0)
+            {
+                Respawn();
             }
         }
     }
@@ -250,7 +292,6 @@ public class PlayerController : MonoBehaviour
             if (playerController != null && Superpowered && !playerController.Superpowered)
             {
                 KillPlayer(playerController);
-                RoundManager.Instance.EndRound("Cat");
             }
         }
     }
