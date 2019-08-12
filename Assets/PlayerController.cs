@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public RuntimeAnimatorController mouseAnimator;
     public RuntimeAnimatorController catAnimator;
 
+    public float catSpeedMultiplier = 1.3F;
     public float moveGroundAccel = 5;
     public float moveGroundMaxSpeed = 20;
     public float moveGroundDecel = 5;
@@ -171,6 +172,9 @@ public class PlayerController : MonoBehaviour
 
     void UpdateJumpMovement(bool jumpPressed, bool jumpPressedThisFrame, float dT)
     {
+        float multiplier = 1.0F;
+        if (Superpowered) {multiplier = catSpeedMultiplier;}
+
         // Update antigrav timer
         if (!jumpPressed || TERRAIN_UP) {jumpAntigravTimer = 0;}
         if (jumpAntigravTimer > 0) {jumpAntigravTimer -= dT;}
@@ -190,7 +194,7 @@ public class PlayerController : MonoBehaviour
         // Maintain vert speed if we're in antigrav time
         if (jumpAntigravTimer > 0)
         {
-            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpImpulse);
+            _rigidbody.velocity = new Vector2(_rigidbody.velocity.x, jumpImpulse*multiplier);
         }
 
         // Apply gravity if we're out of antigrav time and not on the ground
@@ -211,6 +215,9 @@ public class PlayerController : MonoBehaviour
         float moveDir = Mathf.Sign(horizontalSpeed);
         float speedMagnitude = Mathf.Abs(horizontalSpeed);
 
+        float multiplier = 1.0F;
+        if (Superpowered) {multiplier = catSpeedMultiplier;}
+
         // If we have move input, apply it
         var moveInputSign = Mathf.Sign(moveInput);
         var moveInputMagnitude = Mathf.Abs(moveInput);
@@ -219,10 +226,10 @@ public class PlayerController : MonoBehaviour
             if (moveDir != 0 && moveDir != moveInputSign)
             {
                 var decel = isOnGround ? moveGroundDecel : moveAirDecel;
-                horizontalSpeed += decel*moveInputSign*dT;
+                horizontalSpeed += decel*moveInputSign*dT*multiplier;
             }
             var accel = isOnGround ? moveGroundAccel : moveAirAccel;
-            horizontalSpeed += accel*moveInputSign*dT;
+            horizontalSpeed += accel*moveInputSign*dT*multiplier;
         }
 
         // If we have no move input, decelerate
@@ -238,6 +245,7 @@ public class PlayerController : MonoBehaviour
         moveDir = Mathf.Sign(horizontalSpeed);
         speedMagnitude = Mathf.Abs(horizontalSpeed);
         var maxSpeed = isOnGround ? moveGroundMaxSpeed : moveAirMaxSpeed;
+        maxSpeed *= multiplier;
         if (speedMagnitude > maxSpeed)
         {
             speedMagnitude = maxSpeed;
