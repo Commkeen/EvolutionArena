@@ -9,9 +9,14 @@ public class PlayerInfo : MonoBehaviour
     public string Action1ButtonName = "Action1";
     public string Action2ButtonName = "Action2";
 
+    public int PlayerIndex = 0;
+
     // Start is called before the first frame update
     void Start()
     {
+        if (!GameSettings.PlayerIsActive[PlayerIndex])
+            gameObject.SetActive(false);
+
         
     }
 
