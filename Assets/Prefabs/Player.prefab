@@ -183,14 +183,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mouseAnimator: {fileID: 9100000, guid: 9f3a84babac4ff24fa7115487dfc3b27, type: 2}
   catAnimator: {fileID: 9100000, guid: 56cb7ec23759ecd48a9c1dec153eb387, type: 2}
-  moveGroundAccel: 100
+  catSpeedMultiplier: 1.3
+  moveGroundAccel: 50
   moveGroundMaxSpeed: 10
   moveGroundDecel: 100
-  moveAirAccel: 8
+  moveAirAccel: 15
   moveAirMaxSpeed: 10
-  moveAirDecel: 2
+  moveAirDecel: 5
   jumpImpulse: 12
-  jumpAntigravMax: 0.3
+  jumpAntigravMax: 0.35
   gravity: 6
   jumpForce: 100
   isOnGround: 0
@@ -198,8 +199,10 @@ MonoBehaviour:
   jumpAntigravTimer: 0
   powerupCount: 0
   powerupsNeeded: 1
-  superpowerTimeMax: 5
+  superpowerTimeMax: 8
   superpowerTimer: 0
+  respawnTimeMax: 3
+  respawnTimer: 0
 --- !u!61 &3160115598700498776
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -261,3 +264,8 @@ MonoBehaviour:
   JumpButtonName: P1Jump
   Action1ButtonName: P1Action1
   Action2ButtonName: P1Action2
+  Name: Mouse
+  PlayerIndex: 0
+  Kills: 0
+  ScorePanel: {fileID: 0}
+  textScore: {fileID: 0}
