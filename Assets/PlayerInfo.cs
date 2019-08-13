@@ -21,12 +21,15 @@ public class PlayerInfo : MonoBehaviour
     void Start()
     {
         Name = GameSettings.PlayerNames[PlayerIndex];
-        if (!GameSettings.PlayerIsActive[PlayerIndex])
+
+        if (Time.realtimeSinceStartup > 3.0f)
         {
-            gameObject.SetActive(false);
-            ScorePanel.SetActive(false);
+            if (!GameSettings.PlayerIsActive[PlayerIndex])
+            {
+                gameObject.SetActive(false);
+                ScorePanel.SetActive(false);
+            }
         }
-        
     }
 
     // Update is called once per frame
