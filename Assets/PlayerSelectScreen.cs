@@ -10,6 +10,8 @@ public class PlayerSelectScreen : MonoBehaviour
     public Text[] playerNamesText = null;
     public Image[] playerImage = null;
 
+    private readonly Color disabledColor = new Color(0.5f, 0.5f, 0.5f, 0.25f);
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +19,7 @@ public class PlayerSelectScreen : MonoBehaviour
         {
             GameSettings.PlayerIsActive[i] = false;
             playerNamesText[i].text = GameSettings.PlayerNames[i];
-            playerImage[i].color = Color.grey;
+            playerImage[i].color = disabledColor;
 
         }
     }
@@ -39,7 +41,7 @@ public class PlayerSelectScreen : MonoBehaviour
             {
                 GameSettings.PlayerIsActive[i] = false;
                 playerStatusText[i].text = "Press A to Join";
-                playerImage[i].color = Color.grey;
+                playerImage[i].color = disabledColor;
             }
 
         }
