@@ -5264,6 +5264,11 @@ PrefabInstance:
       propertyPath: moveAirAccel
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 3160115598700498777, guid: 09a964c058aed3b4c8a9c08d6196b90e,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 1decb195de05ad14db1d29bd345d35c8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09a964c058aed3b4c8a9c08d6196b90e, type: 3}
 --- !u!1001 &670703978
@@ -6644,6 +6649,11 @@ PrefabInstance:
       propertyPath: moveAirAccel
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 3160115598700498777, guid: 09a964c058aed3b4c8a9c08d6196b90e,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 1decb195de05ad14db1d29bd345d35c8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09a964c058aed3b4c8a9c08d6196b90e, type: 3}
 --- !u!1001 &1587237159
@@ -7143,6 +7153,11 @@ PrefabInstance:
       propertyPath: moveAirAccel
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 3160115598700498777, guid: 09a964c058aed3b4c8a9c08d6196b90e,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 1decb195de05ad14db1d29bd345d35c8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09a964c058aed3b4c8a9c08d6196b90e, type: 3}
 --- !u!1 &1854146319
@@ -7527,5 +7542,10 @@ PrefabInstance:
       propertyPath: moveAirAccel
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 3160115598700498777, guid: 09a964c058aed3b4c8a9c08d6196b90e,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 1decb195de05ad14db1d29bd345d35c8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09a964c058aed3b4c8a9c08d6196b90e, type: 3}

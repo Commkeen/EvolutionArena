@@ -70,11 +70,11 @@ public class PlayerController : MonoBehaviour
         if (jumpInput && !jumpPressed) {jumpPressedThisFrame = true;}
         jumpPressed = jumpInput;
         isOnGround = CheckIsOnGround();
-        
+
         UpdateJumpMovement(jumpPressed, jumpPressedThisFrame, Time.deltaTime);
 
         UpdateHorizontalMovement(moveInput, Time.deltaTime);
-        
+
         TeleportVertical();
 
         TickSuperpowerTimer();
@@ -252,7 +252,8 @@ public class PlayerController : MonoBehaviour
             horizontalSpeed = speedMagnitude * moveDir;
         }
 
-        _animator.SetFloat("HorizontalSpeed", Mathf.Abs(horizontalSpeed));
+        _animator.SetBool("Running", Mathf.Abs(horizontalSpeed) > 0.1f);
+
         _animator.SetBool("GoingRight", horizontalSpeed > 0.5f);
         _animator.SetBool("GoingLeft", horizontalSpeed < -0.5f);
 
