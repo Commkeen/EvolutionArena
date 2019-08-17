@@ -9,6 +9,7 @@ public class PlayerSelectScreen : MonoBehaviour
     public Text[] playerStatusText = null;
     public Text[] playerNamesText = null;
     public Image[] playerImage = null;
+    public Material grayscaleShader = null;
 
     private readonly Color disabledColor = new Color(0.5f, 0.5f, 0.5f, 0.25f);
 
@@ -19,7 +20,8 @@ public class PlayerSelectScreen : MonoBehaviour
         {
             GameSettings.PlayerIsActive[i] = false;
             playerNamesText[i].text = GameSettings.PlayerNames[i];
-            playerImage[i].color = disabledColor;
+            // playerImage[i].color = disabledColor;
+            playerImage[i].material = grayscaleShader;
 
         }
     }
@@ -34,14 +36,14 @@ public class PlayerSelectScreen : MonoBehaviour
             {
                 GameSettings.PlayerIsActive[i] = true;
                 playerStatusText[i].text = "Ready";
-                playerImage[i].color = Color.white;
+                playerImage[i].material = null;
             }
 
             if (Input.GetButtonDown("P" + controlnum + "Action1"))
             {
                 GameSettings.PlayerIsActive[i] = false;
                 playerStatusText[i].text = "Press A to Join";
-                playerImage[i].color = disabledColor;
+                playerImage[i].material = grayscaleShader;
             }
 
         }
