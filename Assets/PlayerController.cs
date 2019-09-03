@@ -193,6 +193,7 @@ public class PlayerController : MonoBehaviour
         if (isOnGround && jumpPressedThisFrame)
         {
             jumpAntigravTimer = jumpAntigravMax;
+            _animator.SetTrigger("JumpTrigger");
         }
 
         // Maintain vert speed if we're in antigrav time
