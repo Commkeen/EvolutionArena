@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     PlayerInfo _playerInfo;
     Animator _animator;
     SpriteRenderer _spriteRenderer;
+    SpritesheetSwitcher _spriteSwitcher;
 
     public RuntimeAnimatorController mouseAnimator;
     public RuntimeAnimatorController catAnimator;
@@ -42,7 +43,6 @@ public class PlayerController : MonoBehaviour
     public float respawnTimeMax = 3.0F;
     public float respawnTimer = 0.0F;
     public bool Dead{get{return respawnTimer > 0;}}
-    public string currentSprite = "";
 
     
 
@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
         _playerInfo = GetComponent<PlayerInfo>();
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _spriteSwitcher = GetComponent<SpritesheetSwitcher>();
     }
 
     // Update is called once per frame
@@ -80,10 +81,6 @@ public class PlayerController : MonoBehaviour
 
         TickSuperpowerTimer();
 
-    }
-
-    void LateUpdate() {
-        currentSprite = _spriteRenderer?.sprite?.name ?? "none";
     }
 
     public void Die()
@@ -131,6 +128,7 @@ public class PlayerController : MonoBehaviour
     {
         superpowerTimer = superpowerTimeMax;
         _animator.runtimeAnimatorController = catAnimator;
+        _spriteSwitcher.enabled = false;
         MusicManager.Instance.FadeInPowerupMusic();
         PowerupSpawnController.Instance.ClearPowerups();
     }
@@ -138,6 +136,7 @@ public class PlayerController : MonoBehaviour
     void ExpireSuperpower()
     {
         _animator.runtimeAnimatorController = mouseAnimator;
+        _spriteSwitcher.enabled = true;
         MusicManager.Instance.FadeOutPowerupMusic();
         PowerupSpawnController.Instance.ReplenishPowerups();
     }
