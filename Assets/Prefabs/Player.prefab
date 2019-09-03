@@ -203,6 +203,7 @@ MonoBehaviour:
   superpowerTimer: 0
   respawnTimeMax: 3
   respawnTimer: 0
+  currentSprite: 
 --- !u!61 &3160115598700498776
 BoxCollider2D:
   m_ObjectHideFlags: 0

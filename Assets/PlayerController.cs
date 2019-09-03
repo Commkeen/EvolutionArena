@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     public float respawnTimeMax = 3.0F;
     public float respawnTimer = 0.0F;
     public bool Dead{get{return respawnTimer > 0;}}
+    public string currentSprite = "";
 
     
 
@@ -79,6 +80,10 @@ public class PlayerController : MonoBehaviour
 
         TickSuperpowerTimer();
 
+    }
+
+    void LateUpdate() {
+        currentSprite = _spriteRenderer?.sprite?.name ?? "none";
     }
 
     public void Die()
@@ -207,6 +212,10 @@ public class PlayerController : MonoBehaviour
         {
             _rigidbody.gravityScale = 0;
         }
+
+        _animator.SetBool("OnGround", isOnGround);
+        _animator.SetBool("JumpImpulse", jumpAntigravTimer > 0);
+        _animator.SetFloat("VerticalSpeed", _rigidbody.velocity.y);
     }
 
     void UpdateHorizontalMovement(float moveInput, float dT)
